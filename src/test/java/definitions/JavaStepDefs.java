@@ -110,6 +110,7 @@ public class JavaStepDefs {
 
     @And("I print if number {int} is positive")
     public void iPrintIfNumberIsPositive(int number) {
+        // homework
         int i=number;
         if (i<0){
             System.out.println("Number is negative");
