@@ -38,8 +38,19 @@
        Scenario: Homework new Steps with condition
          And I print if number "35" is positive
 
-         @java9
-         Scenario: Homework for Days of the week
-           And I print 7 th day of the week
+       @java9
+       Scenario: Homework for Days of the week
+         And I print 7 th day of the week
+         And I print every 2 day of week
+
+       @java10
+       Scenario: I work with arrays
+         And I work with arrays
+         And I work with maps
+
+       @java11
+       Scenario: Homework with maps
+         And I do homework with maps
+
 
 
