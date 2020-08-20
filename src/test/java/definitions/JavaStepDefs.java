@@ -85,7 +85,7 @@ public class JavaStepDefs {
     public void iPerformBooleanActionsWithAnd(String favoriteColor, String notFavoriteColor) {
         System.out.println("My favorite color is " + favoriteColor);
         System.out.println("Not a favorite color is " + notFavoriteColor);
-        System.out.println("Color Comparison == result is " + (favoriteColor == notFavoriteColor));
+        System.out.println("Color Comparison == result is " + (favoriteColor.equals(notFavoriteColor)));
 
 
     }
@@ -262,6 +262,42 @@ public class JavaStepDefs {
         for (String key : info.keySet()) {
             System.out.println(key + ": " + info.get(key));
         }
+    }
+
+    @And("I verify number {int} divisible")
+    public void iVerifyNumberDivisible(int number) {
+        int modulus3 = number % 3;
+        int modulus4 = number % 4;
+        System.out.println("modulus3 " + modulus3);
+        System.out.println("modulus4 " + modulus4);
+        if (modulus3==0 && modulus4==0 ) {
+            System.out.println(number + " is divisible by 3 and 4");
+        } else {
+            if (modulus3 == 0) {
+                System.out.println(number + " is divisible by 3");
+            } else
+            if (modulus4 == 0) {
+                System.out.println(number + " is divisible by 4");
+            }
+            else {
+                System.out.println(number + " is not divisible by 3 or 4");
+            }
+
+        }
+
+    }
+
+    @And("I swap two array elements")
+    public void iSwapTwoArrayElements() {
+        int[] array = {5, 2, 9, 7, 3};
+        int temp = array[2];
+        array[2] = array[4];
+        array[4] = temp;
+        System.out.println(array);
+        for (int i : array) {
+            System.out.print(i + " ");
+        }
+
     }
 }
 

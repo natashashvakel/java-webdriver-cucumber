@@ -52,5 +52,13 @@
        Scenario: Homework with maps
          And I do homework with maps
 
+       @java12
+       Scenario: Homework Interview coding task 2
+         And I verify number 12 divisible
+
+       @java13
+       Scenario: Homework Interview coding task 1-2
+         And I swap two array elements
+
 
 
