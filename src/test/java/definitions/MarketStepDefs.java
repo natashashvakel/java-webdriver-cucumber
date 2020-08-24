@@ -6,6 +6,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import support.TestContext;
 
 import static support.TestContext.getDriver;
@@ -126,5 +128,7 @@ public class MarketStepDefs {
         getDriver().switchTo().alert().accept();
         Thread.sleep(3000);
     }
+
+
 }
 

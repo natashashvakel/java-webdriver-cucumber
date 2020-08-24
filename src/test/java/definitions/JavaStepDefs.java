@@ -299,6 +299,68 @@ public class JavaStepDefs {
         }
 
     }
+
+    @And("I print all numbers from {int} up to {int}")
+    public void iPrintAllNumbersFromUpTo(int begin, int end) {
+        for( int i=begin;i<=end;i++) {
+            System.out.print(i+" ");
+        }
+    }
+
+    @And("I write a function that prints all integer array")
+    public void iWriteAFunctionThatPrintsAllIntegerArray() {
+        int[] array = {5, 2, 9, 7, 3};
+        for (int i : array) {
+            System.out.print(i + " ");
+        }
+
+    }
+
+    @And("I write a function that prints even numbers from integer array")
+    public void iWriteAFunctionThatPrintsEvenNumbersFromIntegerArray() {
+        int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        for (int number : array) {
+            if ( number % 2 == 0 ) System.out.print(number + " ");
+        }
+        //for (int i = 0;i<array.length;i++ ) {
+        //   if ( array[i] % 2 == 0 ) System.out.print(array[i] + " ");
+        //}
+    }
+
+    @And("I write a function that checks if array is empty")
+    public void iWriteAFunctionThatChecksIfArrayIsEmpty() {
+        int[] array = {};
+        if (array.length==0) {
+        System.out.print("Array is empty");}
+    }
+
+    @And("I write a function that checks if array contains element {int}")
+    public void iWriteAFunctionThatChecksIfArrayContainsElement(int element) {
+        int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        for (int number : array) {
+            if ( number == element ) System.out.print(element + " is present in array");
+        }
+
+    }
+
+    @And("I print numbers up to the {int}")
+    public void iPrintNumbersUpToThe(int arg) {
+
+        for( int i=1;i<=arg;i++) {
+            if ( i % 3 != 0 && i % 5 != 0 ) {
+                System.out.print(i+" ");
+            } else {
+                if (i % 3 == 0) {
+                    System.out.print("Fizz");
+                }
+                if (i % 5 == 0) {
+                    System.out.print("Buzz");
+                }
+                System.out.print(" ");
+            }
+        }
+
+    }
 }
 
 

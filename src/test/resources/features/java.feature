@@ -60,5 +60,26 @@
        Scenario: Homework Interview coding task 1-2
          And I swap two array elements
 
+       @java14
+      Scenario: Homework # 8: Write a function that prints all numbers from 0 up to n
+         And I print all numbers from -10 up to 2
 
+       @java15
+      Scenario: Homework # 8: Write a function that prints all numbers from integer array
+      And I write a function that prints all integer array
 
+       @java15
+      Scenario: Homework # 8: Write a function that prints even numbers from integer array
+      And I write a function that prints even numbers from integer array
+
+       @java16
+      Scenario: Homework # 8: Write a function that checks if array is empty
+      And I write a function that checks if array is empty
+
+       @java17
+      Scenario: Homework # 8: Write a function that checks if array contains another element
+      And I write a function that checks if array contains element 7
+
+       @java18
+      Scenario: Homework # 8: Write a function accepts integer argument which print all the numbers up to the argument
+      And I print numbers up to the 20
