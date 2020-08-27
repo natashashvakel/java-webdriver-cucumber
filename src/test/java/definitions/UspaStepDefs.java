@@ -159,5 +159,27 @@ public class UspaStepDefs {
 
         assertThat(getDriver().findElement(By.xpath("//h1[contains(text(),'Sign In To Your Account')]")).isDisplayed());
     }
+
+    @When("I go to {string} tab")
+    public void iGoToTab(String option) {
+        getDriver().findElement(By.xpath("//a[@class='menuitem'][contains(text(),'" + option + "')]")).click();
+    }
+
+    @And("I perform {string} help search")
+    public void iPerformHelpSearch(String searchValue) {
+        getDriver().findElement(By.xpath("//input[@id='137:0']")).sendKeys(searchValue);
+        getDriver().findElement(By.xpath("//button[@title='Search']")).click();
+    }
+
+
+    @Then("I verify that no results of {string} available in help search")
+    public void iVerifyThatNoResultsOfAvailableInHelpSearch(String searchValue) throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@class='slds-button slds-button_brand']")));
+        String result = getDriver().findElement(By.xpath("//div[@class='resultsWrapper']")).getText();
+        System.out.println("_________________________");
+        System.out.println(result);
+        assertThat(result).doesNotContain(searchValue);
+    }
 }
 

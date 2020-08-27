@@ -26,3 +26,10 @@ Feature: USPS scenarios
     And I click "Ship Now" button
     Then I validate that Sign In is required
 
+  @usps12
+  Scenario: Quadcopters delivery
+    Given I go to my "usps" page
+    When I go to "Help" tab
+    And I perform "Quadcopters delivery" help search
+    Then I verify that no results of "Quadcopters delivery" available in help search
+
