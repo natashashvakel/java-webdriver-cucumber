@@ -25,3 +25,4 @@ Feature: USPS scenarios
     When I select "Priority Mail | USPS" in results
     And I click "Ship Now" button
     Then I validate that Sign In is required
+

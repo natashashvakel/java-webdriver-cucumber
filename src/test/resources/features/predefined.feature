@@ -196,6 +196,28 @@ Scenario: Predefined Steps for Searchencrypt
             And element with xpath "//b[@name='email']" should have text as "natasha.shvakel@gmail.com"
             And element with xpath "//b[@name='password']" should not contain text "Password"
 
+           @predefined15
+           Scenario: 9. Test for my Quiz answers
+             Given I open url "https://skryabin.com/market/quote.html"
+             When I type "a" into element with xpath "//*[@name='username']"
+             And I click on element with xpath "//button[@id='formSubmit']"
+             And I clear element with xpath "//input[@name='username']"
+
+           @predefined16
+           Scenario: 10. Test for my Quiz answers
+             Given I open url "https://www.ecosia.org/"
+             Then I should see page title as "Ecosia - the search engine that plants trees"
+             When I type "Behavior Driven Development" into element with xpath "//input[@name='q']"
+             When I click on element with xpath "//button[@type='submit']"
+
+           @predefined16
+           Scenario: 11. Test for my Quiz answers
+             Given I open url "https://skryabin.com/market/quote.html"
+             When I click on element with xpath "//input[@id='name']"
+             And I wait for element with xpath "//div[contains(@aria-describedby,'Dialog')]" to be present
+
+
+
 
 
 
