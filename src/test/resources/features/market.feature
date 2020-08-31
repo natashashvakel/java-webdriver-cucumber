@@ -13,9 +13,9 @@ Feature: Marketing test suite
   Scenario: Required fields for quote
     Given I go to "quote" page
     And I print page details
-    When I fill out required fields
+    When I fill out required fields for "admin"
     And I submit the form
-    Then I verify required fields
+    Then I verify required fields for "admin"
 
    @market3
    Scenario: Homework GetDriver() exercises

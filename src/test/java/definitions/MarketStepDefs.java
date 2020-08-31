@@ -10,7 +10,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import support.TestContext;
 
+import java.util.Map;
+
+import static support.TestContext.getData;
 import static support.TestContext.getDriver;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MarketStepDefs {
     @Given("I go to {string} page")
@@ -42,25 +46,29 @@ public class MarketStepDefs {
 
     }
 
-    @When("I fill out required fields")
-    public void iFillOutRequiredFields() throws InterruptedException {
-        getDriver().findElement(By.xpath("//input[@name='username']")).sendKeys("jdoe");
+    @When("I fill out required fields for {string}")
+    public void iFillOutRequiredFields(String role) throws InterruptedException {
+        Map<String, String> user = getData(role);
+        //getDriver().findElement(By.xpath("//input[@name='username']")).sendKeys("jdoe");
+        //wil use data import from user.yml file under data in resources
+        getDriver().findElement(By.xpath("//input[@name='username']")).sendKeys(user.get("username"));
         getDriver().findElement(By.xpath("//input[@name='email']")).clear();
-        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("johndoe.example.com");
+        //getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("johndoe.example.com");
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys(user.get("password"));
         Thread.sleep(3000);
         getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("\u0008");
         Thread.sleep(3000);
         getDriver().findElement(By.xpath("//input[@name='email']")).clear();
         Thread.sleep(3000);
-        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("john@doe.example.com");
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys(user.get("email"));
         Thread.sleep(3000);
-        getDriver().findElement(By.xpath("//input[@id='password']")).sendKeys("password");
-        getDriver().findElement(By.xpath("//input[@id='confirmPassword']")).sendKeys("password");
+        getDriver().findElement(By.xpath("//input[@id='password']")).sendKeys(user.get("password"));
+        getDriver().findElement(By.xpath("//input[@id='confirmPassword']")).sendKeys(user.get("password"));
 
         getDriver().findElement(By.xpath("//input[@id='name']")).click();
         Thread.sleep(3000);
-        getDriver().findElement(By.xpath("//input[@id='firstName']")).sendKeys("john");
-        getDriver().findElement(By.xpath("//input[@id='lastName']")).sendKeys("doe");
+        getDriver().findElement(By.xpath("//input[@id='firstName']")).sendKeys(user.get("firstName"));
+        getDriver().findElement(By.xpath("//input[@id='lastName']")).sendKeys(user.get("lastName"));
         getDriver().findElement(By.xpath("//span[contains(text(),'Save')]")).click();
         getDriver().findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']")).click();
         Thread.sleep(3000);
@@ -72,9 +80,20 @@ public class MarketStepDefs {
         Thread.sleep(3000);
     }
 
-    @Then("I verify required fields")
-    public void iVerifyRequiredFields() {
-        String username = getDriver().findElement(By.xpath("//b[@name='username']")).getText();
+    @Then("I verify required fields for {string}")
+    public void iVerifyRequiredFields(String role) {
+        //String username = getDriver().findElement(By.xpath("//b[@name='username']")).getText();
+        Map<String, String> user = getData(role);
+        String result = getDriver().findElement(By.xpath("//div[@id='quotePageResult']")).getText();
+        System.out.println(result);
+
+        assertThat(result).containsIgnoringCase(user.get("username"));
+        assertThat(result).containsIgnoringCase(user.get("email"));
+        assertThat(result).doesNotContain(user.get("password"));
+        assertThat(result).contains(user.get("firstName") + " " + user.get("lastName"));
+
+        String privacyPolicy = getDriver().findElement(By.xpath("//b[@name='agreedToPrivacyPolicy']")).getText();
+        assertThat(privacyPolicy).isEqualTo("true");
 
     }
 

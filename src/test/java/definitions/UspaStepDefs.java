@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static support.TestContext.getDriver;
+import static support.TestContext.*;
 
 public class UspaStepDefs {
 
@@ -24,6 +25,9 @@ public class UspaStepDefs {
         switch (page) {
             case "usps":
                 getDriver().get("https://www.usps.com/");
+                break;
+            case "ups":
+                getDriver().get("https://www.ups.com/us/en/Home.page");
                 break;
             default:
                 throw new RuntimeException("Unsupported page! " + page);
@@ -61,8 +65,9 @@ public class UspaStepDefs {
     @When("I go to Calculate Price Page")
     public void iGoToCalculatePricePage() {
         WebElement mailAndShip = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(mailAndShip).perform();
+        //Actions actions = new Actions(getDriver());
+        //actions.moveToElement(mailAndShip).perform();
+        getActions().moveToElement(mailAndShip).perform();
         getDriver().findElement(By.xpath("//li[@class='tool-calc']//a[contains(@href,'postcalc')]")).click();
     }
 
@@ -91,28 +96,38 @@ public class UspaStepDefs {
 
     @When("I perform {string} search")
     public void iPerformSearch(String search) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Search USPS.com')]")));
+        //WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Search USPS.com')]")));
+        getWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Search USPS.com')]")));
         WebElement parameter = getDriver().findElement(By.xpath("//a[contains(text(),'Search USPS.com')]"));
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(parameter).perform();
+        //Actions actions = new Actions(getDriver());
+        //actions.moveToElement(parameter).perform();
+        getActions().moveToElement(parameter).perform();
         getDriver().findElement(By.xpath("//div[@class='repos']//a[contains(text(),'FREE BOXES')]")).click();
     }
 
     @And("I set {string} in filters")
     public void iSetInFilters(String filter) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
-        String elementName = "//ul//a[@title='"+filter+"']";
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementName)));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(elementName)));
-        getDriver().findElement(By.xpath(elementName)).click();
+        //String elementName = "//ul//a[@title='"+filter+"']";
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementName)));
+        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath(elementName)));
+        //getDriver().findElement(By.xpath(filterElement)).click();
+        // Using Javascript click below instead (my commented code above)!!!
+        WebElement filterElement = getDriver().findElement(By.xpath("//ul//a[@title='"+filter+"']"));
+        //JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        //executor.executeScript("arguments[0].click();", filterElement);
+        getExecutor().executeScript("arguments[0].click();", filterElement);
+
     }
 
     @Then("I verify that {string} results found")
     public void iVerifyThatResultsFound(String qty) throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
-        wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable((By.xpath("//a[contains(text(),'Last')]") ))));
+        // Note: extract WebDriverWait from here, put it in TestContext as Static method, in order to use it across my app
+        //WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        //wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable((By.xpath("//a[contains(text(),'Last')]") ))));
         //wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated((By.xpath("//ul//a[@title='International']") ))));
+        getWait().until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable((By.xpath("//a[contains(text(),'Last')]") ))));
         String result2 = getDriver().findElement(By.xpath("//span[@id='searchResultsHeading']")).getText();
         System.out.println("Hello "+result2);
         assertThat(result2).contains(qty);
@@ -120,8 +135,9 @@ public class UspaStepDefs {
 
     @When("I select {string} in results")
     public void iSelectInResults(String option) throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
-        wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable((By.xpath("//a[contains(text(),'Last')]") ))));
+        //WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        //wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable((By.xpath("//a[contains(text(),'Last')]") ))));
+        getWait().until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable((By.xpath("//a[contains(text(),'Last')]") ))));
 
 //        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'"+option+"')]/../..")));
 
@@ -153,9 +169,9 @@ public class UspaStepDefs {
         // switching to last tab
         getDriver().switchTo().window((String) tabs.get(tabs.size()-1));
 
-        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
-
-        wait.until(ExpectedConditions.titleContains("Sign In"));
+        //WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+        //wait.until(ExpectedConditions.titleContains("Sign In"));
+        getWait().until(ExpectedConditions.titleContains("Sign In"));
 
         assertThat(getDriver().findElement(By.xpath("//h1[contains(text(),'Sign In To Your Account')]")).isDisplayed());
     }
@@ -174,8 +190,9 @@ public class UspaStepDefs {
 
     @Then("I verify that no results of {string} available in help search")
     public void iVerifyThatNoResultsOfAvailableInHelpSearch(String searchValue) throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@class='slds-button slds-button_brand']")));
+        //WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@class='slds-button slds-button_brand']")));
+        getWait().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@class='slds-button slds-button_brand']")));
         String result = getDriver().findElement(By.xpath("//div[@class='resultsWrapper']")).getText();
         System.out.println("_________________________");
         System.out.println(result);

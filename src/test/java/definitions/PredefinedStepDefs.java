@@ -107,6 +107,17 @@ public class PredefinedStepDefs {
         executor.executeScript("arguments[0].click();", element);
     }
 
+    //@Then "I scroll to the element with xpath {string} with offset {int}")
+    //public void iScrollToTheElementWithXpathOffset(String xpath, int offset) throws InterruptedException {
+    //WebElement element = getDriver().findElement(By.xpath());
+    //JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+    //executor.executeScript("arguments[0].scrollIntoView(false);" , element);
+    //executor.executeScript("window.scrollBy(0, " +offset + ");", element);
+    //Thread.sleep(5000);
+    //}
+
+
+
     @Then("I take screenshot")
     public void iTakeScreenshot() throws Exception {
         TakesScreenshot screenshotTaker = (TakesScreenshot) getDriver();

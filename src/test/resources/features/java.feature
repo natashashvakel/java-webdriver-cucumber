@@ -83,3 +83,29 @@
        @java18
       Scenario: Homework # 8: Write a function accepts integer argument which print all the numbers up to the argument
       And I print numbers up to the 20
+
+
+       @java19
+      Scenario: Coding challenges
+      And I solve coding challenges
+
+       @java20
+      Scenario: Homework # 10: Write a java program to add 2 numbers and it will print addition. Test the addition code.
+      And I add numbers 2 and number 10 expected result 12
+      And I add numbers 5 and number 10 expected result 15
+
+       @java21
+      Scenario: Homework # 10: Reverse every third character of a string. (Example: "WebDriver" => "vDW")
+      And I reverse string "WebDriver"
+
+       @java22
+      Scenario: Homework # 10: Speak like Yoda - reverse words in a sentence (Example: "I am Automation Engineer" => "Engineer Automation am I")
+      And I speak like Yoda with string "I am Automation Engineer"
+
+      @java23
+      Scenario: Homework # 10: Input two numbers which are divided by 5. If a number is in a range of 1..10 - print it saying it is in the range of 1 from 10. If a number is in the range of 10..20 - print it saying it's in the range of 10..20.
+      And I input 5 and 10
+
+
+
+

@@ -3,6 +3,8 @@ package definitions;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import org.testng.Assert;
+import org.testng.IResultMap;
 
 import java.util.*;
 
@@ -361,7 +363,198 @@ public class JavaStepDefs {
         }
 
     }
+
+    @And("I solve coding challenges")
+    public void iSolveCodingChallenges() {
+        //        System.out.println("Coding challenges: >>>>>>>");
+//        // swap
+//        swap(10, 15);
+//        // swap map keys
+//        Map<String, String> info = new LinkedHashMap<>();
+//        info.put("firstName", "John");
+//        info.put("middleName", "George");
+//        swapMap(info);
+
+//        System.out.println(isDivBy3and4(9));
+//        System.out.println(isDivBy3and4(8));
+//        System.out.println(isDivBy3and4(12));
+//        System.out.println(isDivBy3and4(31));
+//        fizzBuzz(20);
+
+//        int[] intArr = {8, 3, 5, 9, 10, 1};
+//        int[] emptyArr = {};
+//        int[] nullArr = null;
+//        System.out.println(isArrayEmpty(intArr));
+//        System.out.println(isArrayEmpty(emptyArr));
+//        System.out.println(isArrayEmpty(nullArr));
+
+        String str = "WebDriver";
+        printReversed(str);
+        System.out.println(getReversed(str));
+    }
+
+    String getReversed(String str) {
+        System.out.println("Return reversed " + str);
+        String reversed = "";
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reversed += str.charAt(i);
+        }
+        return reversed;
+    }
+
+    void printReversed(String str) {
+        System.out.println("Reverse " + str);
+        for (int i = str.length() - 1; i >= 0; i--) {
+            System.out.print(str.charAt(i));
+        }
+        System.out.println();
+    }
+
+    boolean isArrayEmpty(int[] arr) {
+        System.out.println("Is array empty?");
+        if (arr == null || arr.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+//Write a function, accepts integer argument
+//It should print all the numbers up to the argument
+//BUT:
+// if number is multiple of 3, it should print Fizz instead of number
+// if number is multiple of 5, it should print Buzz instead of number
+// If it is multiple of both 3 and 5, it should print FizzBuzz instead of number
+//Result for 20:
+//1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz 16 17 Fizz 19 Buzz
+
+    void fizzBuzz(int num) {
+        System.out.println("FizzBuzz for " + num);
+        for (int i = 1; i <= num; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                System.out.print("FizzBuzz ");
+            } else if (i % 3 == 0) {
+                System.out.print("Fizz ");
+            } else if (i % 5 == 0) {
+                System.out.print("Buzz ");
+            } else {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+
+//    Write a function that accepts integer number and returns
+//    "divisible by 3" if number is divisible by 3
+//    "divisible by 4" if element is divisible by 4
+//    "divisible by 3 and 4" if divisible by 3 and 4
+
+    String isDivBy3and4(int num) {
+        System.out.println(">>>> isDivBy3and4 for " + num);
+        if (num % 3 == 0 && num % 4 == 0) {
+            return "divisible by 3 and 4";
+        } else if (num % 3 == 0) {
+            return "divisible by 3";
+        } else if (num % 4 == 0) {
+            return "divisible by 4";
+        } else {
+            return "not divisible by 3 and 4";
+        }
+    }
+
+    void swap(int a, int b) {
+        System.out.println("swap method >>>");
+        System.out.println("a: " + a);
+        System.out.println("b: " + b);
+
+        int temp = a;
+        a = b;
+        b = temp;
+
+        System.out.println("a: " + a);
+        System.out.println("b: " + b);
+    }
+
+    void swapMap(Map<String, String> info) {
+        System.out.println("swapMap method >>>");
+        System.out.println("info: " + info);
+
+        String temp = info.get("firstName");
+        info.put("firstName", info.get("middleName"));
+        info.put("middleName", temp);
+
+        System.out.println("info: " + info);
+    }
+
+
+    public int add(int var1, int var2) {
+        return var1+var2;
+    }
+
+    public String reverseEach3rd(String var) {
+        String ret="";
+
+        for (int i=var.length()-3;i>=0;i-=3) {
+           ret += var.charAt(i);
+        }
+
+        return ret;
+    }
+
+    public String YodaSpeak(String var) {
+        String ret="";
+
+        // split string into words separated by space
+        String[] array = var.split(" ");
+
+        for (int i=array.length-1;i>=0;i--) {
+            System.out.println("array["+i+"]="+array[i]);
+            ret += array[i]+" ";
+        }
+
+        return ret;
+    }
+
+    void checkRange(int var, int low, int high) {
+        if ( var >= low && var <= high) {
+            System.out.println("Number "+var+" within range "+low+".."+high+".");
+        }
+    }
+
+    void task(int a, int b ) {
+        checkRange(a, 1, 10);
+        checkRange(b, 1, 10);
+        checkRange(a, 10, 20);
+        checkRange(b, 10, 20);
+    }
+
+    @And("I reverse string {string}")
+    public void iReverseString(String var) {
+        String result = reverseEach3rd(var);
+        System.out.print("Result="+result);
+
+    }
+
+    @And("I speak like Yoda with string {string}")
+    public void iSpeakLikeYodaWithString(String var) {
+        String result = YodaSpeak(var);
+        System.out.print("Result="+result);
+
+    }
+
+    @And("I add numbers {int} and number {int} expected result {int}")
+    public void iAddNumbersAndNumberExpectedResult(int num1, int num2, int expectedResult) {
+        int res = add(num1,num2);
+        System.out.println("adding "+num1+" and "+num2+" result="+res);
+        Assert.assertEquals(res,expectedResult);
+    }
+
+    @And("I input {int} and {int}")
+    public void iInputAnd(int arg0, int arg1) {
+        task(arg0,arg1);
+    }
 }
+
 
 
 
