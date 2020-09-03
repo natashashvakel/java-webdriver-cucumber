@@ -102,10 +102,17 @@
       Scenario: Homework # 10: Speak like Yoda - reverse words in a sentence (Example: "I am Automation Engineer" => "Engineer Automation am I")
       And I speak like Yoda with string "I am Automation Engineer"
 
-      @java23
+       @java23
       Scenario: Homework # 10: Input two numbers which are divided by 5. If a number is in a range of 1..10 - print it saying it is in the range of 1 from 10. If a number is in the range of 10..20 - print it saying it's in the range of 10..20.
       And I input 5 and 10
 
+       @java24
+      Scenario: Homework # 11: Write a function that find 2 max numbers in an array
+      And I check 2 max numbers in array
+
+       @java25
+      Scenario: Homework # 11: Write a function that finds if word is palindrome
+      And I check if word "Anedena" is palindrom
 
 
 

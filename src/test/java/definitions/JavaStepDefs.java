@@ -257,10 +257,10 @@ public class JavaStepDefs {
         for (String key : info.keySet()) {
             System.out.println(key + ": " + info.get(key));
         }
-        String a= info.get("firstName");
-        String b= info.get("middleName");
+        String a = info.get("firstName");
+        String b = info.get("middleName");
         info.put("firstName", b);
-        info.put("middleName",a);
+        info.put("middleName", a);
         for (String key : info.keySet()) {
             System.out.println(key + ": " + info.get(key));
         }
@@ -272,16 +272,14 @@ public class JavaStepDefs {
         int modulus4 = number % 4;
         System.out.println("modulus3 " + modulus3);
         System.out.println("modulus4 " + modulus4);
-        if (modulus3==0 && modulus4==0 ) {
+        if (modulus3 == 0 && modulus4 == 0) {
             System.out.println(number + " is divisible by 3 and 4");
         } else {
             if (modulus3 == 0) {
                 System.out.println(number + " is divisible by 3");
-            } else
-            if (modulus4 == 0) {
+            } else if (modulus4 == 0) {
                 System.out.println(number + " is divisible by 4");
-            }
-            else {
+            } else {
                 System.out.println(number + " is not divisible by 3 or 4");
             }
 
@@ -304,8 +302,8 @@ public class JavaStepDefs {
 
     @And("I print all numbers from {int} up to {int}")
     public void iPrintAllNumbersFromUpTo(int begin, int end) {
-        for( int i=begin;i<=end;i++) {
-            System.out.print(i+" ");
+        for (int i = begin; i <= end; i++) {
+            System.out.print(i + " ");
         }
     }
 
@@ -322,7 +320,7 @@ public class JavaStepDefs {
     public void iWriteAFunctionThatPrintsEvenNumbersFromIntegerArray() {
         int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         for (int number : array) {
-            if ( number % 2 == 0 ) System.out.print(number + " ");
+            if (number % 2 == 0) System.out.print(number + " ");
         }
         //for (int i = 0;i<array.length;i++ ) {
         //   if ( array[i] % 2 == 0 ) System.out.print(array[i] + " ");
@@ -332,15 +330,16 @@ public class JavaStepDefs {
     @And("I write a function that checks if array is empty")
     public void iWriteAFunctionThatChecksIfArrayIsEmpty() {
         int[] array = {};
-        if (array.length==0) {
-        System.out.print("Array is empty");}
+        if (array.length == 0) {
+            System.out.print("Array is empty");
+        }
     }
 
     @And("I write a function that checks if array contains element {int}")
     public void iWriteAFunctionThatChecksIfArrayContainsElement(int element) {
         int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         for (int number : array) {
-            if ( number == element ) System.out.print(element + " is present in array");
+            if (number == element) System.out.print(element + " is present in array");
         }
 
     }
@@ -348,9 +347,9 @@ public class JavaStepDefs {
     @And("I print numbers up to the {int}")
     public void iPrintNumbersUpToThe(int arg) {
 
-        for( int i=1;i<=arg;i++) {
-            if ( i % 3 != 0 && i % 5 != 0 ) {
-                System.out.print(i+" ");
+        for (int i = 1; i <= arg; i++) {
+            if (i % 3 != 0 && i % 5 != 0) {
+                System.out.print(i + " ");
             } else {
                 if (i % 3 == 0) {
                     System.out.print("Fizz");
@@ -488,40 +487,40 @@ public class JavaStepDefs {
 
 
     public int add(int var1, int var2) {
-        return var1+var2;
+        return var1 + var2;
     }
 
     public String reverseEach3rd(String var) {
-        String ret="";
+        String ret = "";
 
-        for (int i=var.length()-3;i>=0;i-=3) {
-           ret += var.charAt(i);
+        for (int i = var.length() - 3; i >= 0; i -= 3) {
+            ret += var.charAt(i);
         }
 
         return ret;
     }
 
     public String YodaSpeak(String var) {
-        String ret="";
+        String ret = "";
 
         // split string into words separated by space
         String[] array = var.split(" ");
 
-        for (int i=array.length-1;i>=0;i--) {
-            System.out.println("array["+i+"]="+array[i]);
-            ret += array[i]+" ";
+        for (int i = array.length - 1; i >= 0; i--) {
+            System.out.println("array[" + i + "]=" + array[i]);
+            ret += array[i] + " ";
         }
 
         return ret;
     }
 
     void checkRange(int var, int low, int high) {
-        if ( var >= low && var <= high) {
-            System.out.println("Number "+var+" within range "+low+".."+high+".");
+        if (var >= low && var <= high) {
+            System.out.println("Number " + var + " within range " + low + ".." + high + ".");
         }
     }
 
-    void task(int a, int b ) {
+    void task(int a, int b) {
         checkRange(a, 1, 10);
         checkRange(b, 1, 10);
         checkRange(a, 10, 20);
@@ -531,27 +530,126 @@ public class JavaStepDefs {
     @And("I reverse string {string}")
     public void iReverseString(String var) {
         String result = reverseEach3rd(var);
-        System.out.print("Result="+result);
+        System.out.print("Result=" + result);
 
     }
 
     @And("I speak like Yoda with string {string}")
     public void iSpeakLikeYodaWithString(String var) {
         String result = YodaSpeak(var);
-        System.out.print("Result="+result);
+        System.out.print("Result=" + result);
 
     }
 
     @And("I add numbers {int} and number {int} expected result {int}")
     public void iAddNumbersAndNumberExpectedResult(int num1, int num2, int expectedResult) {
-        int res = add(num1,num2);
-        System.out.println("adding "+num1+" and "+num2+" result="+res);
-        Assert.assertEquals(res,expectedResult);
+        int res = add(num1, num2);
+        System.out.println("adding " + num1 + " and " + num2 + " result=" + res);
+        Assert.assertEquals(res, expectedResult);
     }
 
     @And("I input {int} and {int}")
     public void iInputAnd(int arg0, int arg1) {
-        task(arg0,arg1);
+        task(arg0, arg1);
+    }
+
+
+    //int[] arr={1,2,3,6,1,2,3,4,6,7,8,9,10,11,2,3,4,5};
+
+    public void findDuplicatesInArray(int[] arr) {
+// key, value
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        for (int i = 0; i < arr.length; i++) {
+
+            if (map.get(arr[i]) == null) {
+                map.put(arr[i], 1);
+            } else {
+                System.out.println("Duplicate found: " + arr[i]);
+                return;
+            }
+        }
+        System.out.println("All Elements are unique");
+    }
+
+    public void countCharsInString(String var) {
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+
+        var = var.toLowerCase();
+
+        for (int i = 0; i < var.length(); i++) {
+
+            Character key = var.charAt(i);
+
+            // if character not found in map
+            // i.e. = null
+            // put key into map with value 1
+            if (map.get(key) == null) {
+                map.put(key, 1);
+            } else {
+                // if character found, increment count.
+                Integer val = map.get(key);
+                map.put(key, val + 1);
+            }
+
+        }
+
+        System.out.println("Character count: ");
+        // loop for all elements in map.
+        for (Map.Entry<Character, Integer> e : map.entrySet())
+            System.out.println(e.getKey() + " " + e.getValue());
+    }
+
+
+    // Write a function that find 2 max numbers in an array
+    public void findTwoMaxInArray(int[] arr) {
+        int max0 = Integer.MIN_VALUE;
+        int max1 = Integer.MIN_VALUE;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (max0 < arr[i]) {
+                max1 = max0;
+                max0 = arr[i];
+            }
+        }
+        System.out.println("Max number: " + max0 + " second max: " + max1);
+    }
+
+    @And("I check 2 max numbers in array")
+    public void iCheckMaxNumbersInArray() {
+        int[] arr = {1, 2, 3, 6, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 2, 3, 4, 5};
+        findTwoMaxInArray(arr);
+    }
+
+    // Write a function that finds if word is palindrome
+    public void IsThisWordPalindrome(String var) {
+        if (var.isEmpty()) {
+            System.out.println("No");
+            return;
+        }
+        if (var.length() == 1) {
+            System.out.println("Yes");
+            return;
+        }
+        var = var.toLowerCase();
+
+        int halfLen = var.length() / 2;
+
+        for (int i = 1; i <= halfLen; i++) {
+            // if char from beginning != char from end
+            // not a palindrome
+            if (var.charAt(i - 1) != var.charAt(var.length() - i)) {
+                System.out.println("No");
+                return;
+            }
+        }
+        System.out.println("Yes");
+    }
+
+
+    @And("I check if word {string} is palindrom")
+    public void iCheckIfWordIsPalindrom(String word) {
+        IsThisWordPalindrome(word);
     }
 }
 
