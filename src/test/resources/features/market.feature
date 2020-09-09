@@ -37,13 +37,13 @@ Feature: Marketing test suite
   @market6
   Scenario: Homework GetDriver().findElement() exercises
     Given I go to "quote" page
-    And I fill out required fields
+    And I fill out required fields for "admin"
     And I submit the form
 
   @market7
   Scenario: Homework Assertion exercises
     Given I go to "quote" page
-    And I fill out required fields
+    And I fill out required fields for "user"
     And I fill out optional fields
     And I "accept" agreement
     And I submit the form

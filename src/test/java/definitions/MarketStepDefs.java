@@ -121,7 +121,7 @@ public class MarketStepDefs {
 
         name = getDriver().findElement(By.xpath("//b[@name='name']")).getText();
 
-        if (name.equals("john doe")) {
+        if (name.equals("John Doe")) {
                 System.out.println("Email entered correctly ");
         } else {
                 throw new Exception("Name is wrong!");
