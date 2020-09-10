@@ -114,5 +114,10 @@
       Scenario: Homework # 11: Write a function that finds if word is palindrome
       And I check if word "Anedena" is palindrom
 
+       @java26
+      Scenario: Classes
+         Given I work with classes
+
+
 
 

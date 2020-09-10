@@ -420,10 +420,6 @@ public class UspaStepDefs {
     public void iClickMyButton(String button) {
         String elementName = "//a[contains(text(),'"+button+"')]";
         getDriver().findElement(By.xpath(elementName)).click();
-        //int numOfWin = getDriver().getWindowHandles().size();
-        //while (getDriver().getWindowHandles().size() < numOfWin + 1) {
-        //    getDriver().findElement(By.xpath("//a[contains(text(),'" + button + "')]")).click();
-
     }
 
     @And("verify {string} service exists")
@@ -432,8 +428,6 @@ public class UspaStepDefs {
         WebElement progress = getDriver().findElement(By.xpath(progressElement));
         getWait().until(ExpectedConditions.invisibilityOf(progress));
         assertThat(getDriver().findElement(By.xpath("//*[text()='" + service + "']"))).isNotNull();
-        //serviceSelect.selectByVisibleText(service);
-
     }
 }
 

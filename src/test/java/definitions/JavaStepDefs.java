@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.testng.Assert;
 import org.testng.IResultMap;
+import pages.*;
 
 import java.util.*;
 
@@ -650,6 +651,52 @@ public class JavaStepDefs {
     @And("I check if word {string} is palindrom")
     public void iCheckIfWordIsPalindrom(String word) {
         IsThisWordPalindrome(word);
+    }
+
+    @Given("I work with classes")
+    public void iWorkWithClasses() {
+        // Cat
+        // Dog
+        Animal cat = new Cat("Tom", 2);
+        System.out.println(cat.getName());
+        cat.walk();
+        cat.sleep();
+        cat.speak();
+        cat.eat("fish");
+
+        Animal dog = new Dog();
+        System.out.println(dog.getName());
+        dog.walk();
+        dog.sleep();
+        dog.speak();
+        dog.eat("bone");
+
+        List<Animal> list = new ArrayList<>();
+        list.add(cat);
+        list.add(dog);
+        printAnimalNames(list);
+
+
+    }
+    public void printAnimalNames(List<Animal> animals) {
+        System.out.println("print names method");
+        for (Animal animal : animals) {
+            animal.speak();
+            System.out.println(animal.getName());
+        }
+
+        Transport ship = new Ship("Titanic",1);
+        System.out.println(ship.getName());
+        ship.stop();
+        ship.sound();
+        ship.belong("Sam");
+
+        Transport broom = new Broom();
+        System.out.println(broom.getName());
+        broom.move();
+        broom.stop();
+        broom.belong("me");
+
     }
 }
 
