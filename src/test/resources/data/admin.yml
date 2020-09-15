@@ -3,3 +3,8 @@ email: admin@example.com
 password: welcome
 firstName: Richard
 lastName: Roe
+phone: "8001234567"
+dateOfBirth: "04/20/2020"
+gender: male
+
+
