@@ -1,37 +1,40 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
 
-public class QuoteForm {
+public class QuoteForm extends Page {
 
     //fields
 
-    private String url;
-    private String title;
 
-    @FindBy(name = "username")
+    @FindBy(xpath = "//input[@name='username']")
     private WebElement username;
 
     @FindBy(name = "email")
     private WebElement email;
 
-    @FindBy(name = "password")
+    @FindBy(xpath = "//input[@id='password']")
     private WebElement password;
 
     @FindBy(name = "confirmPassword")
     private WebElement confirmPassword;
 
-    @FindBy(name = "name")
+    @FindBy(id = "name")
     private WebElement name;
 
-    @FindBy(name = "firstName")
+    @FindBy(id = "firstName")
     private WebElement firstName;
 
-    @FindBy(name = "lastName")
+    @FindBy(name = "middleName")
+    private WebElement middleName;
+
+    @FindBy(id = "lastName")
     private WebElement lastName;
 
     @FindBy(xpath = "//span[text()='Save']")
@@ -64,6 +67,9 @@ public class QuoteForm {
     @FindBy(id = "password-error")
     private WebElement passwordError;
 
+    @FindBy(id = "confirmPassword-error")
+    private WebElement confirmPasswordError;
+
     @FindBy(id = "name-error")
     private WebElement nameError;
 
@@ -74,16 +80,11 @@ public class QuoteForm {
     //constructor
 
     public QuoteForm() {
-        PageFactory.initElements(getDriver(), this);
         url = "https://skryabin.com/market/quote.html";
         title = "Get a Quote";
     }
 
     //methods
-
-    public void open() {
-        getDriver().get(url);
-    }
 
     public void fillUsername(String value) {
         username.sendKeys(value);
@@ -103,7 +104,26 @@ public class QuoteForm {
         firstName.sendKeys(firstNameValue);
         lastName.sendKeys(lastNameValue);
         saveButton.click();
+        assertThat(name.getAttribute("value")).isEqualTo(firstNameValue + " " + lastNameValue);
     }
+
+    public void fillName(String firstNameValue, String middleNameValue, String lastNameValue) {
+        name.click();
+        firstName.sendKeys(firstNameValue);
+        middleName.sendKeys(middleNameValue);
+        lastName.sendKeys(lastNameValue);
+        saveButton.click();
+        assertThat(name.getAttribute("value")).isEqualTo(firstNameValue + " " + middleNameValue + " " + lastNameValue);
+    }
+
+
+    public String getFieldValue (String fieldName) {
+        if (fieldName.equals("name"))
+            return name.getAttribute("value");
+
+        else return "";
+    }
+
 
     public void agreeWithPrivacyPolicy() {
         if (!privacy.isSelected()) {
@@ -144,6 +164,8 @@ public class QuoteForm {
                 return nameError.getText();
             case "agreedToPrivacyPolicy":
                 return agreedToPrivacyPolicy.getText();
+            case "confirmPassword":
+                return confirmPasswordError.getText();
         }
         return "";
     }
@@ -169,5 +191,23 @@ public class QuoteForm {
                 break;
         }
     }
+
+    public boolean errorDisplayed(String fieldId) {
+
+        switch (fieldId) {
+            case "username":
+                return usernameError.isDisplayed();
+            case "email":
+                return emailError.isDisplayed();
+            case "password":
+                return passwordError.isDisplayed();
+            case "name":
+                return nameError.isDisplayed();
+            case "agreedToPrivacyPolicy":
+                return agreedToPrivacyPolicy.isDisplayed();
+        }
+        return false;
+    }
+
 
 }

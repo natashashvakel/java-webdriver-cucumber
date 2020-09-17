@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pages.QuoteForm;
 import pages.QuoteResult;
 
@@ -98,5 +99,30 @@ public class QuoteStepDefs {
     @When("I fill out {string} field with {string}")
     public void iFillOutFieldWith(String field, String value) {
         form.fillField(field,value);
+    }
+
+    @Then("I don't see {string} error message")
+    public void iDonTSeeErrorMessage(String field) {
+        Boolean result = form.errorDisplayed(field);
+        assertThat(result).isFalse();
+
+    }
+
+    @When("I fill out name field with first name {string} and last name {string}")
+    public void iFillOutNameFieldWithFirstNameAndLastName(String firstNameValue, String lastNameValue) throws InterruptedException {
+        form.fillName(firstNameValue,lastNameValue);
+    }
+
+    @Then("I verify {string} field value {string}")
+    public void iVerifyFieldValue(String fieldName, String fieldValue) {
+        String result = form.getFieldValue(fieldName);
+        assertThat(result).isEqualTo(fieldValue);
+
+    }
+
+    @When("I fill out name field with first name {string}, middle name {string}, last name {string}")
+    public void iFillOutNameFieldWithFirstNameMiddleNameLastName(String firstNameValue, String middleNameValue, String lastNameValue) {
+        form.fillName(firstNameValue,middleNameValue,lastNameValue);
+
     }
 }
