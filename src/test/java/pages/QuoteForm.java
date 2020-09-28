@@ -3,7 +3,6 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
@@ -75,6 +74,12 @@ public class QuoteForm extends Page {
 
     @FindBy(id = "agreedToPrivacyPolicy-error")
     private WebElement agreedToPrivacyPolicy;
+
+
+    // dynamic field
+    private WebElement errorElement(String fieldName) {
+        return getDriver().findElement(By.id(fieldName + "-error"));
+    }
 
 
     //constructor
@@ -168,6 +173,11 @@ public class QuoteForm extends Page {
                 return confirmPasswordError.getText();
         }
         return "";
+    }
+
+    public String getErrorFieldText(String fieldName) {
+        waitToBeSelected(errorElement(fieldName));
+        return errorElement(fieldName).getText();
     }
 
     public void fillField(String field, String value) {

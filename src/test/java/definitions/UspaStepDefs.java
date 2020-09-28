@@ -13,6 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.*;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -26,6 +27,11 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import static support.TestContext.*;
 
 public class UspaStepDefs {
+
+    UspsHome uspsHome = new UspsHome();
+    UspsLookupByZip uspsLookupByZip = new UspsLookupByZip();
+    UspsByAddressForm uspsByAddressForm = new UspsByAddressForm();
+    UspsByAddressResult uspsByAddressResult = new UspsByAddressResult();
 
     @Given("I go to my {string} page")
     public void iGoToMyPage(String page) {
@@ -357,7 +363,6 @@ public class UspaStepDefs {
        //getExecutor().executeScript("arguments[0].click();", element);
     }
 
-
     @And("I click {string} color")
     public void iClickColor(String option) {
         String elementName = "//*[contains(@onclick,'/" + option.toLowerCase() + "/')]";
@@ -384,7 +389,6 @@ public class UspaStepDefs {
         String result = getDriver().findElement(By.xpath("//*[@class='col-md-3 application-header align-self-center results-per-page']")).getText();
         assertThat(result).contains(qty);
     }
-
 
     @And("I verify that items below {int} dollars exists")
     public void iVerifyThatItemsBelowDollarsExists(int price) throws ParseException {
@@ -429,5 +433,42 @@ public class UspaStepDefs {
         getWait().until(ExpectedConditions.invisibilityOf(progress));
         assertThat(getDriver().findElement(By.xpath("//*[text()='" + service + "']"))).isNotNull();
     }
+
+
+    @When("I go to Lookup ZIP page by address oop")
+    public void iGoToLookupZIPPageByAddressOop() {
+        uspsHome.goToLookupByZip();
+        uspsLookupByZip.clickFindByAddress();
+    }
+
+    @And("I fill out {string} street, {string} city, {string} state oop")
+    public void iFillOutStreetCityStateOop(String street, String city, String state) {
+        uspsByAddressForm.fillStreet(street);
+        uspsByAddressForm.fillCity(city);
+        uspsByAddressForm.selectState(state);
+        uspsByAddressForm.clickFind();
+
+    }
+
+    @Then("I validate {string} zip code exists in the result oop")
+    public void iValidateZipCodeExistsInTheResultOop(String zip)  {
+        String actualTotalResult = uspsByAddressResult.getSearchResult();
+        assertThat(actualTotalResult).contains(zip);
+
+        Boolean areAllItemsContainZip = uspsByAddressResult.areAllResultsContainZip(zip);
+        assertThat(areAllItemsContainZip).isTrue();
+    }
+
+    @When("I go to Calculate Price Page oop")
+    public void iGoToCalculatePricePageOop() {
+        uspsHome.goToCalculatePrice();
+    }
+
+    @And("I select {string} with {string} shape oop")
+    public void iSelectWithShapeOop(String arg0, String arg1) {
+
+    }
+
+
 }
 
