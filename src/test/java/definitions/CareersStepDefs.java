@@ -17,6 +17,7 @@ public class CareersStepDefs {
     CareersLogin careersLogin = new CareersLogin();
     CareerHeader careerHeader = new CareerHeader();
     CareerRecruit careerRecruit = new CareerRecruit();
+    CareerOpenPosition careerOpenPosition = new CareerOpenPosition();
 
 
     @And("I login as {string}")
@@ -45,12 +46,42 @@ public class CareersStepDefs {
     public void iVerifyPositionIsRemoved(String position)  {
         careerHeader.clickCareersButton();
         careersHome.waitUntilPosingAreaContainText();
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&");
         if (careersHome.isPositionPresent(position)) {
             System.out.println("Error: deleted position is still displayed");
         }
         else {
             System.out.println("Position was removed successfully");
         }
+    }
+
+    @When("I create {string} position")
+    public void iCreatePosition(String position)  {
+        careerHeader.clickRecruitButton();
+        careerRecruit.openPosition();
+
+        Map<String,String> positionDetail = getData(position);
+        careerOpenPosition.fillTitle(positionDetail.get("title"));
+        careerOpenPosition.fillDescription(positionDetail.get("description"));
+        careerOpenPosition.fillAddress(positionDetail.get("address"));
+        careerOpenPosition.fillCity(positionDetail.get("city"));
+        careerOpenPosition.fillState(positionDetail.get("state"));
+        careerOpenPosition.fillZip(positionDetail.get("zip"));
+        careerOpenPosition.fillDate(positionDetail.get("dateOpen"));
+        careerOpenPosition.clickSubmitButton();
+    }
+
+    @Then("I verify {string} position is created")
+    public void iVerifyPositionIsCreated(String position) throws InterruptedException {
+        careerHeader.clickCareersButton();
+        careersHome.waitUntilPosingAreaContainText();
+        if (careersHome.isPositionPresent(position)) {
+            System.out.println("New position was successfully created");
+        }
+        else {
+            System.out.println("Error: new position was not created");
+        }
+
+
+
     }
 }

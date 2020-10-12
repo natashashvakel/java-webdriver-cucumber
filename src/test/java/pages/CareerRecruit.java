@@ -13,6 +13,12 @@ public class CareerRecruit extends CareerHeader {
     @FindBy(xpath = "//*[text()='Principal Automation Engineer']/../../..//button[@class='style-close']")
     private static WebElement principalAutomationEngineerRemoveButton;
 
+    @FindBy(xpath = "//*[text()='New Position']")
+    private static WebElement newPositionButton;
+
+    @FindBy(xpath = "//*[text()='Open new position']/../..")
+    private static WebElement recruitControl;
+
 
 
     // dynamic field
@@ -32,4 +38,11 @@ public class CareerRecruit extends CareerHeader {
         mouseOver(positionElement(position));
         removePositionButton(position).click();
     }
+
+    public void openPosition() {
+        mouseOver(recruitControl);
+        newPositionButton.click();
+    }
+
+
 }

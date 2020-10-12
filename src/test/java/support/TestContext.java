@@ -1,6 +1,7 @@
 // Created by Viacheslav (Slava) Skryabin 04/01/2011
 package support;
 
+import cucumber.api.java8.Da;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,13 +27,48 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestContext {
 
     private static WebDriver driver;
+    //introducing timestamp variable
+    public static String timestamp;
+
+
+    private static Map<String, Object> testData = new HashMap<>();
+
+
+    public static Map<String, Object> getTestDataMap(String key) {
+        return (Map<String, Object>) testData.get(key);
+    }
+
+    public static Integer getTestDataInteger(String key) {
+        return (Integer) testData.get(key);
+    }
+
+    public static String getTestDataString(String key) {
+        return (String) testData.get(key);
+    }
+
+    public static void setTestData(String key, Object value) {
+        testData.put(key, value);
+    }
+
+    //get timestamp
+    public static String getTimestamp() {
+        return timestamp;
+    }
+
+    //setting date format
+    public static void setTimestamp() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("+yyyy-MM-dd-h-mm-sss");
+        timestamp = dateFormat.format(new Date());
+    }
 
     public static WebDriver getDriver() {
         return driver;
